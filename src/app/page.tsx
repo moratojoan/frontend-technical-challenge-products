@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import styles from './page.module.css';
+import { ProductListItem } from '@/components/ProductListItem';
 
 export const data = {
   title: 'iPhone 6S Oro',
@@ -16,13 +17,7 @@ export default function Home() {
       <h1>Item Manager</h1>
       <section>
         <ul>
-          <li>
-            <h2>{data.title}</h2>
-            <p>{data.description}</p>
-            <p>{data.email}</p>
-            <p>{data.price}</p>
-            <Image src={data.image} alt={data.title} width={200} height={200} />
-          </li>
+          <ProductListItem {...data} />
         </ul>
       </section>
     </main>
