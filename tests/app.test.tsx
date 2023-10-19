@@ -1,6 +1,7 @@
 import React from 'react';
-import App, { data } from '@/app/page';
-import { render } from '@testing-library/react';
+import App from '@/app/page';
+import data from '@/app/data.json';
+import { render, within } from '@testing-library/react';
 import '@testing-library/jest-dom';
 
 jest.mock('next/image', () => ({
@@ -11,13 +12,19 @@ jest.mock('next/image', () => ({
 }));
 
 describe('Item Manager App', () => {
-  it('has an item including a title, description, a price and an email', () => {
-    const { getByText, getByAltText } = render(<App />);
+  it('has a list of items with title, description, price, email and image', () => {
+    const { getAllByTestId, getByText, getByAltText } = render(<App />);
+    const products = getAllByTestId('product-item');
 
-    expect(getByText(data.title)).toBeInTheDocument();
-    expect(getByText(data.description)).toBeInTheDocument();
-    expect(getByText(data.price)).toBeInTheDocument();
-    expect(getByText(data.email)).toBeInTheDocument();
-    expect(getByAltText(data.title)).toHaveAttribute('src', data.image);
+    data.items.forEach((item, index) => {
+      expect(products[index]).toHaveTextContent(item.title);
+      expect(products[index]).toHaveTextContent(item.description);
+      expect(products[index]).toHaveTextContent(item.price);
+      expect(products[index]).toHaveTextContent(item.email);
+      expect(within(products[index]).getByAltText(item.title)).toHaveAttribute(
+        'src',
+        item.image
+      );
+    });
   });
 });

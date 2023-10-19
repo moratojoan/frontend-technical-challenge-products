@@ -9,7 +9,7 @@ interface ProductListItemProps {
 }
 export function ProductListItem(props: ProductListItemProps) {
   return (
-    <li>
+    <li data-testid="product-item">
       <h2>{props.title}</h2>
       <p>{props.description}</p>
       <p>{props.email}</p>
