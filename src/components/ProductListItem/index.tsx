@@ -1,12 +1,7 @@
+import { Item } from '@/lib/api/items';
 import Image from 'next/image';
 
-interface ProductListItemProps {
-  title: string;
-  description: string;
-  email: string;
-  price: string;
-  image: string;
-}
+interface ProductListItemProps extends Item {}
 export function ProductListItem(props: ProductListItemProps) {
   return (
     <li data-testid="product-item">
