@@ -1,7 +1,8 @@
 import React from 'react';
 import App from '@/app/page';
 import data from './mocks/data.json';
-import { render, within } from '@testing-library/react';
+import { render, waitFor, within } from '@testing-library/react';
+import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import 'whatwg-fetch';
 import { rest } from 'msw';
@@ -24,6 +25,7 @@ const server = setupServer(
 beforeAll(() => server.listen({ onUnhandledRequest: 'error' }));
 afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
+
 describe('Item Manager App', () => {
   it('has a list of items with title, description, price, email and image', async () => {
     const { getAllByTestId } = render(await App());
@@ -38,6 +40,19 @@ describe('Item Manager App', () => {
         'src',
         item.image
       );
+    });
+  });
+
+  it('shows only items that has the key words submitted in the search form', async () => {
+    const { getByLabelText, getAllByTestId } = render(await App());
+
+    const searchInput = getByLabelText(/search\b/i);
+    user.type(searchInput, 'piel[Enter]');
+    await waitFor(() => {
+      const products = getAllByTestId('product-item');
+      products.forEach((product) => {
+        expect(product).toHaveTextContent(/piel\b/i);
+      });
     });
   });
 
