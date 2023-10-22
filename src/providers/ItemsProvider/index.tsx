@@ -1,13 +1,20 @@
 'use client';
 
-import { GetItemsParams, getItems } from '@/lib/api/items';
-import { ItemsData, ItemsError, Meta } from '@/lib/api/items/types';
-import { ApiResponse } from '@/lib/api/types';
 import { ReactNode, createContext, useContext, useState } from 'react';
+import { GetItemsParams, getItems } from '@/lib/api/items';
+import {
+  type Item,
+  type ItemsData,
+  type ItemsError,
+} from '@/lib/api/items/types';
+import { ApiResponse } from '@/lib/api/types';
+import lodashIsEqual from 'lodash.isequal';
 
 interface ItemsProviderValue {
   itemsResponse: ApiResponse<ItemsData, ItemsError>;
   fetchItems: (params: GetItemsParams) => void;
+  addToFavorites: (item: Item) => void;
+  checkIfIsInFavorites: (item: Item) => boolean;
 }
 const defaultValue: ItemsProviderValue = {
   itemsResponse: {
@@ -26,6 +33,8 @@ const defaultValue: ItemsProviderValue = {
     error: null,
   },
   fetchItems: () => {},
+  addToFavorites: () => {},
+  checkIfIsInFavorites: () => false,
 };
 const ItemsContext = createContext(defaultValue);
 
@@ -38,6 +47,7 @@ export function ItemsProvider({
   initialItemsResponse,
 }: ItemsProviderProps) {
   const [itemsResponse, setItemsResponse] = useState(initialItemsResponse);
+  const [favorites, setFavorites] = useState<Item[]>([]);
 
   const fetchItems = async (params: GetItemsParams) => {
     const currentParamsToKeep: Omit<GetItemsParams, 'page'> = {
@@ -62,11 +72,28 @@ export function ItemsProvider({
     }
     setItemsResponse(newItemsResponse);
   };
+
+  const addToFavorites = (item: Item) => {
+    const isInFavorites = checkIfIsInFavorites(item);
+    if (isInFavorites) return;
+    setFavorites((state) => [...state, item]);
+  };
+
+  const checkIfIsInFavorites = (item: Item) => {
+    /* 
+      Ideally the item object should have an id. Then it could be compared using
+      the ids. As the items have it, I have decided to compare the whole object,
+      to avoid the possibility that 2 items have the same title.
+    */
+    return favorites.some((favItem) => lodashIsEqual(item, favItem));
+  };
   return (
     <ItemsContext.Provider
       value={{
         itemsResponse,
         fetchItems,
+        addToFavorites,
+        checkIfIsInFavorites,
       }}
     >
       {children}

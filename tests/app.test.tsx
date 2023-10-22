@@ -316,4 +316,14 @@ describe('Item Manager App', () => {
       expect(products[1]).toHaveTextContent('Polaroid 635');
     });
   });
+
+  it("disables the 'favorite' button and modify the text when is clicked", async () => {
+    const { getAllByRole } = render(await App());
+    const button = getAllByRole('button', { name: /add to favorites\b/i })[0];
+
+    await user.click(button);
+
+    expect(button).toBeDisabled();
+    expect(button).toHaveTextContent(/added to favorites\b/i);
+  });
 });

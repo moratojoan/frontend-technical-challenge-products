@@ -15,7 +15,14 @@ export function ProductsSection() {
         <>
           <ul>
             {data.items.map((item) => (
-              <ProductListItem key={item.title} {...item} />
+              <ProductListItem
+                /*
+                  As the items have no Id, I use the description as key to
+                  avoid the case that more than one item has the same title.
+                */
+                key={item.title + item.description}
+                item={item}
+              />
             ))}
           </ul>
           {data.meta.pagination.hasNextPage && (
