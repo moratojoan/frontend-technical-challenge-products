@@ -327,8 +327,8 @@ describe('Item Manager App', () => {
     expect(button).toHaveTextContent(/added to favorites\b/i);
   });
 
-  it("shows a list of favorite items in the 'Favorite Items Modal'", async () => {
-    const { getAllByRole, getByRole, getAllByTestId } = render(await App());
+  it("shows a list of favorite items in the 'Favorite Items Modal' with title and image", async () => {
+    const { getAllByRole, getByRole } = render(await App());
     const favoriteButtons = getAllByRole('button', {
       name: /add to favorites\b/i,
     });
@@ -348,5 +348,30 @@ describe('Item Manager App', () => {
         within(favoriteItems[index]).getByAltText(item.title)
       ).toHaveAttribute('src', item.image);
     });
+  });
+
+  it("removes an item from the 'Favorite Items Modal' after clicking the 'remove favorite' button", async () => {
+    const { getAllByRole, getByRole } = render(await App());
+    const favoriteButtons = getAllByRole('button', {
+      name: /add to favorites\b/i,
+    });
+    const openModalButton = getByRole('button', { name: /open favorites\b/i });
+
+    await user.click(favoriteButtons[0]);
+    await user.click(favoriteButtons[1]);
+    await user.click(openModalButton);
+
+    const modal = getByRole('dialog');
+    const favoriteItems = within(modal).getAllByTestId('favorite-item');
+    expect(favoriteItems.length).toBe(2);
+
+    const removeButton = within(favoriteItems[0]).getByRole('button', {
+      name: /remove from favorite\b/i,
+    });
+    await user.click(removeButton);
+
+    const favoriteItemsUpdated = within(modal).getAllByTestId('favorite-item');
+    expect(favoriteItemsUpdated.length).toBe(1);
+    expect(favoriteItemsUpdated[0]).toHaveTextContent(data.items[1].title);
   });
 });

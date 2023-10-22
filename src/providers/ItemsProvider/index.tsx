@@ -16,6 +16,7 @@ interface ItemsProviderValue {
   fetchItems: (params: GetItemsParams) => void;
   addToFavorites: (item: Item) => void;
   checkIfIsInFavorites: (item: Item) => boolean;
+  removeFromFavorite: (itemToRemove: Item) => void;
 }
 const defaultValue: ItemsProviderValue = {
   itemsResponse: {
@@ -37,6 +38,7 @@ const defaultValue: ItemsProviderValue = {
   fetchItems: () => {},
   addToFavorites: () => {},
   checkIfIsInFavorites: () => false,
+  removeFromFavorite: () => {},
 };
 const ItemsContext = createContext(defaultValue);
 
@@ -89,6 +91,13 @@ export function ItemsProvider({
     */
     return favorites.some((favItem) => lodashIsEqual(item, favItem));
   };
+
+  const removeFromFavorite = (itemToRemove: Item) => {
+    const favoritesUpdated = favorites.filter(
+      (item) => !lodashIsEqual(itemToRemove, item)
+    );
+    setFavorites(favoritesUpdated);
+  };
   return (
     <ItemsContext.Provider
       value={{
@@ -97,6 +106,7 @@ export function ItemsProvider({
         fetchItems,
         addToFavorites,
         checkIfIsInFavorites,
+        removeFromFavorite,
       }}
     >
       {children}

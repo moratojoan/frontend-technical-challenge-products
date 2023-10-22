@@ -5,6 +5,7 @@ import ReactModal from 'react-modal';
 import { useItems } from '@/providers/ItemsProvider';
 
 import './styles.css';
+import { FavoriteListItem } from '../FavoriteListItem';
 
 interface FavoriteModalProps {
   open: boolean;
@@ -28,10 +29,7 @@ export function FavoriteModal({ open, onClose }: FavoriteModalProps) {
       </header>
       <section>
         {favorites.map((item) => (
-          <li data-testid="favorite-item" key={item.title + item.description}>
-            <h2>{item.title}</h2>
-            <Image src={item.image} alt={item.title} width={100} height={100} />
-          </li>
+          <FavoriteListItem key={item.title + item.description} item={item} />
         ))}
       </section>
     </ReactModal>
