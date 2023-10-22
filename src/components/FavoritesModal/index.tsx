@@ -1,5 +1,9 @@
 'use client';
+
+import Image from 'next/image';
 import ReactModal from 'react-modal';
+import { useItems } from '@/providers/ItemsProvider';
+
 import './styles.css';
 
 interface FavoriteModalProps {
@@ -9,6 +13,8 @@ interface FavoriteModalProps {
 
 ReactModal.setAppElement('#main');
 export function FavoriteModal({ open, onClose }: FavoriteModalProps) {
+  const { favorites } = useItems();
+
   return (
     <ReactModal
       isOpen={open}
@@ -16,8 +22,18 @@ export function FavoriteModal({ open, onClose }: FavoriteModalProps) {
       onRequestClose={onClose}
       shouldCloseOnOverlayClick={true}
     >
-      <h1>Favorite Items</h1>
-      <button onClick={onClose}>Close Modal</button>
+      <header>
+        <h1>Favorite Items</h1>
+        <button onClick={onClose}>Close Modal</button>
+      </header>
+      <section>
+        {favorites.map((item) => (
+          <li data-testid="favorite-item" key={item.title + item.description}>
+            <h2>{item.title}</h2>
+            <Image src={item.image} alt={item.title} width={100} height={100} />
+          </li>
+        ))}
+      </section>
     </ReactModal>
   );
 }

@@ -12,6 +12,7 @@ import lodashIsEqual from 'lodash.isequal';
 
 interface ItemsProviderValue {
   itemsResponse: ApiResponse<ItemsData, ItemsError>;
+  favorites: Item[];
   fetchItems: (params: GetItemsParams) => void;
   addToFavorites: (item: Item) => void;
   checkIfIsInFavorites: (item: Item) => boolean;
@@ -32,6 +33,7 @@ const defaultValue: ItemsProviderValue = {
     },
     error: null,
   },
+  favorites: [],
   fetchItems: () => {},
   addToFavorites: () => {},
   checkIfIsInFavorites: () => false,
@@ -91,6 +93,7 @@ export function ItemsProvider({
     <ItemsContext.Provider
       value={{
         itemsResponse,
+        favorites,
         fetchItems,
         addToFavorites,
         checkIfIsInFavorites,

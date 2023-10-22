@@ -1,7 +1,7 @@
 import React from 'react';
 import App from '@/app/page';
 
-import { getByText, render, waitFor, within } from '@testing-library/react';
+import { render, waitFor, within } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
@@ -35,8 +35,8 @@ describe('Item Manager App', () => {
     const { getAllByTestId } = render(await App());
     const products = getAllByTestId('product-item');
 
+    expect(products.length <= 5).toBe(true);
     data.items.slice(0, 5).forEach((item, index) => {
-      expect(products.length <= 5).toBe(true);
       expect(products[index]).toHaveTextContent(item.title);
       expect(products[index]).toHaveTextContent(item.description);
       expect(products[index]).toHaveTextContent(item.price);
@@ -327,15 +327,26 @@ describe('Item Manager App', () => {
     expect(button).toHaveTextContent(/added to favorites\b/i);
   });
 
-  it("opens the 'Favorite Modal' after pressing the 'open favorites' button", async () => {
-    const { getByRole, getByText } = render(await App());
-    const button = getByRole('button', { name: /open favorites\b/i });
+  it("shows a list of favorite items in the 'Favorite Items Modal'", async () => {
+    const { getAllByRole, getByRole, getAllByTestId } = render(await App());
+    const favoriteButtons = getAllByRole('button', {
+      name: /add to favorites\b/i,
+    });
+    const openModalButton = getByRole('button', { name: /open favorites\b/i });
 
-    await user.click(button);
+    await user.click(favoriteButtons[0]);
+    await user.click(favoriteButtons[1]);
+    await user.click(favoriteButtons[2]);
+    await user.click(openModalButton);
 
     const modal = getByRole('dialog');
-    expect(modal).toBeInTheDocument();
-    const title = getByText(/favorite items\b/i);
-    expect(title).toBeInTheDocument();
+    const favoriteItems = within(modal).getAllByTestId('favorite-item');
+    expect(favoriteItems.length).toBe(3);
+    data.items.slice(0, 3).forEach((item, index) => {
+      expect(favoriteItems[index]).toHaveTextContent(item.title);
+      expect(
+        within(favoriteItems[index]).getByAltText(item.title)
+      ).toHaveAttribute('src', item.image);
+    });
   });
 });
