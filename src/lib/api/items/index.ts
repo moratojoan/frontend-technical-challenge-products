@@ -1,17 +1,23 @@
 import { ApiResponse } from '../types';
-import { filterItemsByKeyWords } from './helpers';
-import { type ItemsData, type ItemsError, type Item } from './types';
-
-export { type Item };
+import { filterItemsByKeyWords } from './helpers/filters';
+import { orderItemsBy } from './helpers/orderBy';
+import {
+  type ItemsData,
+  type ItemsError,
+  type KeyWords,
+  type OrderBy,
+} from './types';
 
 const ITEMS_URL =
   'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json';
 
 export interface GetItemsParams {
-  keyWords?: string;
+  keyWords?: KeyWords;
+  orderBy?: OrderBy;
 }
 export async function getItems({
   keyWords,
+  orderBy,
 }: GetItemsParams): Promise<ApiResponse<ItemsData, ItemsError>> {
   /*
     I'm assuming that the items.json is just a data sample, not an actual API.
@@ -25,8 +31,15 @@ export async function getItems({
 
     const json = await response.json();
     const itemsFiltered = filterItemsByKeyWords(json.items, keyWords);
+    const itemsOrdered = orderItemsBy(itemsFiltered, orderBy);
 
-    return { data: { items: itemsFiltered }, error: null };
+    return {
+      data: {
+        items: itemsOrdered,
+        meta: { keyWords, orderBy },
+      },
+      error: null,
+    };
   } catch (error) {
     return {
       data: null,

@@ -1,4 +1,4 @@
-import { Item } from '@/lib/api/items';
+import { type Item } from '@/lib/api/items/types';
 import Image from 'next/image';
 
 interface ProductListItemProps extends Item {}

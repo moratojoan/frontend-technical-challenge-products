@@ -11,7 +11,7 @@ interface ItemsProviderValue {
   fetchItems: (params: FetchItemsParams) => void;
 }
 const defaultValue: ItemsProviderValue = {
-  itemsResponse: { data: { items: [] }, error: null },
+  itemsResponse: { data: { items: [], meta: {} }, error: null },
   fetchItems: () => {},
 };
 const ItemsContext = createContext(defaultValue);
@@ -26,9 +26,10 @@ export function ItemsProvider({
 }: ItemsProviderProps) {
   const [itemsResponse, setItemsResponse] = useState(initialItemsResponse);
 
-  const fetchItems = async ({ keyWords }: FetchItemsParams) => {
-    const itemsResponse = await getItems({ keyWords });
-    setItemsResponse(itemsResponse);
+  const fetchItems = async (params: FetchItemsParams) => {
+    const actualMeta = itemsResponse?.data?.meta ?? {};
+    const newItemsResponse = await getItems({ ...actualMeta, ...params });
+    setItemsResponse(newItemsResponse);
   };
   return (
     <ItemsContext.Provider
