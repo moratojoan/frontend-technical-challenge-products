@@ -17,7 +17,8 @@
     "lodash.orderby": "^4.6.0",
     "next": "13.5.5",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "@testing-library/jest-dom": "^6.1.4",
@@ -28,6 +29,7 @@
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
+    "@types/react-modal": "^3.16.2",
     "eslint": "^8",
     "eslint-config-next": "13.5.5",
     "eslint-config-prettier": "^9.0.0",

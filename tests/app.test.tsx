@@ -1,7 +1,7 @@
 import React from 'react';
 import App from '@/app/page';
 
-import { render, waitFor, within } from '@testing-library/react';
+import { getByText, render, waitFor, within } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 
@@ -325,5 +325,17 @@ describe('Item Manager App', () => {
 
     expect(button).toBeDisabled();
     expect(button).toHaveTextContent(/added to favorites\b/i);
+  });
+
+  it("opens the 'Favorite Modal' after pressing the 'open favorites' button", async () => {
+    const { getByRole, getByText } = render(await App());
+    const button = getByRole('button', { name: /open favorites\b/i });
+
+    await user.click(button);
+
+    const modal = getByRole('dialog');
+    expect(modal).toBeInTheDocument();
+    const title = getByText(/favorite items\b/i);
+    expect(title).toBeInTheDocument();
   });
 });
