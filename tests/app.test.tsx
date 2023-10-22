@@ -31,11 +31,12 @@ afterAll(() => server.close());
 afterEach(() => server.resetHandlers());
 
 describe('Item Manager App', () => {
-  it('shows a list of items with title, description, price, email and image', async () => {
+  it('shows a list of maximum 5 items with title, description, price, email and image', async () => {
     const { getAllByTestId } = render(await App());
     const products = getAllByTestId('product-item');
 
-    data.items.forEach((item, index) => {
+    data.items.slice(0, 5).forEach((item, index) => {
+      expect(products.length <= 5).toBe(true);
       expect(products[index]).toHaveTextContent(item.title);
       expect(products[index]).toHaveTextContent(item.description);
       expect(products[index]).toHaveTextContent(item.price);

@@ -1,7 +1,9 @@
 import { ApiResponse } from '../types';
 import { filterItemsByKeyWords } from './helpers/filters';
 import { orderItemsBy } from './helpers/orderBy';
+import { getPaginatedItems } from './helpers/pagination';
 import {
+  type Item,
   type ItemsData,
   type ItemsError,
   type KeyWords,
@@ -12,10 +14,12 @@ const ITEMS_URL =
   'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json';
 
 export interface GetItemsParams {
+  page?: number;
   keyWords?: KeyWords;
   orderBy?: OrderBy;
 }
 export async function getItems({
+  page = 0,
   keyWords,
   orderBy,
 }: GetItemsParams): Promise<ApiResponse<ItemsData, ItemsError>> {
@@ -30,13 +34,22 @@ export async function getItems({
     if (!response.ok) throw new Error();
 
     const json = await response.json();
-    const itemsFiltered = filterItemsByKeyWords(json.items, keyWords);
+    const items = json.items as Item[];
+    const itemsFiltered = filterItemsByKeyWords(items, keyWords);
     const itemsOrdered = orderItemsBy(itemsFiltered, orderBy);
+    const { items: pageItems, pagination } = getPaginatedItems(
+      itemsOrdered,
+      page
+    );
 
     return {
       data: {
-        items: itemsOrdered,
-        meta: { keyWords, orderBy },
+        items: pageItems,
+        meta: {
+          keyWords,
+          orderBy,
+          pagination,
+        },
       },
       error: null,
     };

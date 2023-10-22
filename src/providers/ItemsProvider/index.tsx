@@ -11,7 +11,21 @@ interface ItemsProviderValue {
   fetchItems: (params: FetchItemsParams) => void;
 }
 const defaultValue: ItemsProviderValue = {
-  itemsResponse: { data: { items: [], meta: {} }, error: null },
+  itemsResponse: {
+    data: {
+      items: [],
+      meta: {
+        pagination: {
+          page: 0,
+          total: 0,
+          perPage: 0,
+          hasNextPage: false,
+          hasPrevPage: false,
+        },
+      },
+    },
+    error: null,
+  },
   fetchItems: () => {},
 };
 const ItemsContext = createContext(defaultValue);
