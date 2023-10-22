@@ -317,14 +317,17 @@ describe('Item Manager App', () => {
     });
   });
 
-  it("disables the 'favorite' button and modify the text when is clicked", async () => {
+  it('add and remove an item from the favorite list', async () => {
     const { getAllByRole } = render(await App());
     const button = getAllByRole('button', { name: /add to favorites\b/i })[0];
 
     await user.click(button);
 
-    expect(button).toBeDisabled();
-    expect(button).toHaveTextContent(/added to favorites\b/i);
+    expect(button).toHaveTextContent(/remove from favorites\b/i);
+
+    await user.click(button);
+
+    expect(button).toHaveTextContent(/add to favorites\b/i);
   });
 
   it("shows a list of favorite items in the 'Favorite Items Modal' with title and image", async () => {
@@ -350,7 +353,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it("removes an item from the 'Favorite Items Modal' after clicking the 'remove favorite' button", async () => {
+  it("removes an item from the 'Favorite Items Modal' after clicking the 'remove favorite' button in the modal", async () => {
     const { getAllByRole, getByRole } = render(await App());
     const favoriteButtons = getAllByRole('button', {
       name: /add to favorites\b/i,

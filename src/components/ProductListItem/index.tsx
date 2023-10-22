@@ -6,7 +6,8 @@ interface ProductListItemProps {
   item: Item;
 }
 export function ProductListItem({ item }: ProductListItemProps) {
-  const { addToFavorites, checkIfIsInFavorites } = useItems();
+  const { addToFavorites, checkIfIsInFavorites, removeFromFavorite } =
+    useItems();
   const isInFavorites = checkIfIsInFavorites(item);
   return (
     <li data-testid="product-item">
@@ -15,8 +16,12 @@ export function ProductListItem({ item }: ProductListItemProps) {
       <p>{item.email}</p>
       <p>{item.price}</p>
       <Image src={item.image} alt={item.title} width={200} height={200} />
-      <button disabled={isInFavorites} onClick={() => addToFavorites(item)}>
-        {isInFavorites ? 'Added to favorites' : 'Add to favorites'}
+      <button
+        onClick={() =>
+          isInFavorites ? removeFromFavorite(item) : addToFavorites(item)
+        }
+      >
+        {isInFavorites ? 'Remove from favorites' : 'Add to favorites'}
       </button>
     </li>
   );
