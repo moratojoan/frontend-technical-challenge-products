@@ -353,6 +353,27 @@ describe('Item Manager App', () => {
     });
   });
 
+  it("shows a list of favorite items filtered by title in the 'Favorite Items Modal'", async () => {
+    const { getAllByRole, getByRole } = render(await App());
+    const favoriteButtons = getAllByRole('button', {
+      name: /add to favorites\b/i,
+    });
+    const openModalButton = getByRole('button', { name: /open favorites\b/i });
+
+    await user.click(favoriteButtons[0]);
+    await user.click(favoriteButtons[1]);
+    await user.click(favoriteButtons[2]);
+    await user.click(openModalButton);
+    const modal = getByRole('dialog');
+    const searchByTitleInput =
+      within(modal).getByLabelText(/search by title\b/i);
+    await user.type(searchByTitleInput, 'iphone');
+
+    const favoriteItems = within(modal).getAllByTestId('favorite-item');
+    expect(favoriteItems.length).toBe(1);
+    expect(favoriteItems[0]).toHaveTextContent('iPhone');
+  });
+
   it("removes an item from the 'Favorite Items Modal' after clicking the 'remove favorite' button in the modal", async () => {
     const { getAllByRole, getByRole } = render(await App());
     const favoriteButtons = getAllByRole('button', {
