@@ -13,7 +13,7 @@ export function getPaginatedItems(
   const perPage = ITEMS_PER_PAGE;
   const hasPrevPage = page > 0;
   const nextPage = page + 1;
-  const hasNextPage = nextPage * perPage <= total;
+  const hasNextPage = (nextPage + 1) * perPage <= total;
 
   const pageItems = items.slice(page * perPage, nextPage * perPage);
 

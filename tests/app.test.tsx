@@ -48,6 +48,32 @@ describe('Item Manager App', () => {
     });
   });
 
+  it("shows a list of more than 5 items when 'show more items' button is clicked", async () => {
+    const { getByRole, getAllByTestId } = render(await App());
+
+    const button = getByRole('button', { name: /show more items\b/i });
+    await user.click(button);
+
+    await waitFor(() => {
+      const products = getAllByTestId('product-item');
+      expect(products.length > 5).toBe(true);
+    });
+  });
+
+  it("don't show a 'show more items' button when there wasn't a next page available", async () => {
+    const { getByRole, queryByRole } = render(await App());
+
+    const button = getByRole('button', { name: /show more items\b/i });
+    await user.click(button);
+    await user.click(button);
+    await user.click(button);
+
+    await waitFor(() => {
+      const button = queryByRole('button', { name: /show more items\b/i });
+      expect(button).not.toBeInTheDocument();
+    });
+  });
+
   it("shows an error message when there's a server error", async () => {
     server.use(
       rest.get(
@@ -65,7 +91,7 @@ describe('Item Manager App', () => {
     ).toBeInTheDocument();
   });
 
-  it('shows only items that has the key words submitted in the search form', async () => {
+  it("shows only items that has the key words submitted in the 'search' form", async () => {
     const { getByLabelText, getAllByTestId } = render(await App());
 
     const searchInput = getByLabelText(/search\b/i);
@@ -78,7 +104,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows items ordered asc by title after pressing the title button sorting one time', async () => {
+  it("shows items ordered asc by title after pressing the 'title sorting' button one time", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',
@@ -101,7 +127,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows items ordered desc by title after pressing the title button sorting two times', async () => {
+  it("shows items ordered desc by title after pressing the 'title sorting' button two times", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',
@@ -125,7 +151,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows items ordered asc by description after pressing the description button sorting one time', async () => {
+  it("shows items ordered asc by description after pressing the 'description sorting' button one time", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',
@@ -148,7 +174,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows items ordered desc by description after pressing the description button sorting two times', async () => {
+  it("shows items ordered desc by description after pressing the 'description sorting' button two times", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',
@@ -172,7 +198,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows items ordered asc by email after pressing the email button sorting one time', async () => {
+  it("shows items ordered asc by email after pressing the 'email sorting' button one time", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',
@@ -195,7 +221,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows items ordered desc by email after pressing the email button sorting two times', async () => {
+  it("shows items ordered desc by email after pressing the 'email sorting' button two times", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',
@@ -219,7 +245,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows items ordered asc by price after pressing the price button sorting one time', async () => {
+  it("shows items ordered asc by price after pressing the 'price sorting' button one time", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',
@@ -242,7 +268,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows items ordered desc by price after pressing the price button sorting two times', async () => {
+  it("shows items ordered desc by price after pressing the 'price sorting' button two times", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',
@@ -266,7 +292,7 @@ describe('Item Manager App', () => {
     });
   });
 
-  it('shows the items that match the key words submitted in the search form and ordered asc by title after pressing the title button sorting one time', async () => {
+  it("shows the items that match the key words submitted in the 'search' form and ordered asc by title after pressing the 'title sorting' button one time", async () => {
     server.use(
       rest.get(
         'https://frontend-tech-test-data.s3-eu-west-1.amazonaws.com/items.json',

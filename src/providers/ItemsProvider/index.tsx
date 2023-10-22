@@ -1,14 +1,13 @@
 'use client';
 
 import { GetItemsParams, getItems } from '@/lib/api/items';
-import { ItemsData, ItemsError } from '@/lib/api/items/types';
+import { ItemsData, ItemsError, Meta } from '@/lib/api/items/types';
 import { ApiResponse } from '@/lib/api/types';
 import { ReactNode, createContext, useContext, useState } from 'react';
 
-type FetchItemsParams = GetItemsParams;
 interface ItemsProviderValue {
   itemsResponse: ApiResponse<ItemsData, ItemsError>;
-  fetchItems: (params: FetchItemsParams) => void;
+  fetchItems: (params: GetItemsParams) => void;
 }
 const defaultValue: ItemsProviderValue = {
   itemsResponse: {
@@ -40,9 +39,27 @@ export function ItemsProvider({
 }: ItemsProviderProps) {
   const [itemsResponse, setItemsResponse] = useState(initialItemsResponse);
 
-  const fetchItems = async (params: FetchItemsParams) => {
-    const actualMeta = itemsResponse?.data?.meta ?? {};
-    const newItemsResponse = await getItems({ ...actualMeta, ...params });
+  const fetchItems = async (params: GetItemsParams) => {
+    const currentParamsToKeep: Omit<GetItemsParams, 'page'> = {
+      keyWords: itemsResponse.data?.meta.keyWords,
+      orderBy: itemsResponse.data?.meta.orderBy,
+    };
+    const newItemsResponse = await getItems({
+      ...currentParamsToKeep,
+      ...params,
+    });
+    if (
+      newItemsResponse.data &&
+      itemsResponse.data &&
+      params.page &&
+      params.page > itemsResponse.data?.meta.pagination.page
+    ) {
+      const itemsAccumulated = [
+        ...itemsResponse.data.items,
+        ...newItemsResponse.data.items,
+      ];
+      newItemsResponse.data.items = itemsAccumulated;
+    }
     setItemsResponse(newItemsResponse);
   };
   return (
