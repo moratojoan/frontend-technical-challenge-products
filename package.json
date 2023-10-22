@@ -10,7 +10,8 @@
     "format": "npx prettier . --write",
     "prepare": "husky install",
     "test": "jest",
-    "test:watch": "jest --watch"
+    "test:watch": "npm run test -- --watch",
+    "test:coverage": "npm run test -- --coverage"
   },
   "dependencies": {
     "lodash.isequal": "^4.5.0",
