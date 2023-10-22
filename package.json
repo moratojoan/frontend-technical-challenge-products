@@ -9,7 +9,8 @@
     "lint": "next lint",
     "format": "npx prettier . --write",
     "prepare": "husky install",
-    "test": "jest --watch"
+    "test": "jest",
+    "test:watch": "jest --watch"
   },
   "dependencies": {
     "lodash.orderby": "^4.6.0",
