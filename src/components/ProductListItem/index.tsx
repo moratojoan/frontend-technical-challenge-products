@@ -1,6 +1,6 @@
 import { type Item } from '@/lib/api/items/types';
 import { useItems } from '@/providers/ItemsProvider';
-import Image from 'next/image';
+import { Image } from '@/components/ui/Image';
 
 interface ProductListItemProps {
   item: Item;
