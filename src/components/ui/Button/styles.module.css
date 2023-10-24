@@ -1,12 +1,23 @@
-.favorites-button {
+.button {
   font-size: 1rem;
-  padding: 0.5rem 2rem;
-  color: #fff;
-  background-color: var(--primary-500);
+
   border-radius: 3rem;
   outline: none;
   border: none;
   box-shadow: 0 1px 4px #2532381a;
+}
+
+.button--small {
+  padding: 0.5rem 2rem;
+}
+
+.button--large {
+  padding: 1.5rem 2.5rem;
+}
+
+.button--primary {
+  color: #fff;
+  background-color: var(--primary-500);
 
   &:hover {
     background-color: var(--primary-400);

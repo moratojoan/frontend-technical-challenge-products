@@ -1,6 +1,7 @@
 'use client';
 
 import { useItems } from '@/providers/ItemsProvider';
+import { Button } from '@/components/ui/Button';
 import { ProductListItem } from '../ProductListItem';
 
 export function ProductsSection() {
@@ -26,13 +27,14 @@ export function ProductsSection() {
             ))}
           </ul>
           {data.meta.pagination.hasNextPage && (
-            <button
+            <Button
+              size="large"
               onClick={() => {
                 fetchItems({ page: data.meta.pagination.page + 1 });
               }}
             >
               Show more items
-            </button>
+            </Button>
           )}
         </>
       )}

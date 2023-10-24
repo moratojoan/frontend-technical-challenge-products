@@ -16,6 +16,7 @@
     "test:e2e:ui": "npx playwright test --ui"
   },
   "dependencies": {
+    "clsx": "^2.0.0",
     "lodash.isequal": "^4.5.0",
     "lodash.orderby": "^4.6.0",
     "next": "13.5.5",
