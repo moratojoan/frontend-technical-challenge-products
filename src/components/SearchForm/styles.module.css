@@ -1,0 +1,31 @@
+.search-container {
+  display: flex;
+  justify-content: center;
+}
+
+.search-input {
+  height: 3rem;
+  width: 100%;
+  padding: 0 4rem;
+  border: 1px solid #90a4ae;
+  border-radius: 2rem;
+  font-size: 1rem;
+  transition: padding 0.2s ease-in-out;
+
+  &:hover {
+    border-width: 2px;
+    border-color: #253238;
+    outline: none;
+  }
+
+  &:focus {
+    padding-left: 1.5rem;
+    border-width: 2px;
+    border-color: var(--primary-300);
+    outline: none;
+  }
+
+  @media (width > 768px) {
+    margin: 0 4rem;
+  }
+}

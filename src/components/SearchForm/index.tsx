@@ -2,6 +2,7 @@
 
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import { useItems } from '@/providers/ItemsProvider';
+import styles from './styles.module.css';
 
 export function SearchForm() {
   const { fetchItems } = useItems();
@@ -14,7 +15,7 @@ export function SearchForm() {
     fetchItems({ keyWords });
   };
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className={styles['search-container']}>
       <label htmlFor="keyword" className="sr-only">
         Search items
       </label>
@@ -23,6 +24,7 @@ export function SearchForm() {
         type="text"
         placeholder="Search items..."
         onChange={handleInputChange}
+        className={styles['search-input']}
       />
     </form>
   );

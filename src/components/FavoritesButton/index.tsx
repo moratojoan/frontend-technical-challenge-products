@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import dynamic from 'next/dynamic';
+import styles from './styles.module.css';
 
 const DynamicFavoriteModal = dynamic(() =>
   import('../FavoritesModal').then((mod) => mod.FavoriteModal)
@@ -20,7 +21,12 @@ export function FavoritesButton() {
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)}>Open favorites</button>
+      <button
+        className={styles['favorites-button']}
+        onClick={() => setIsOpen(true)}
+      >
+        Open favorites
+      </button>
       {isOpen && (
         <DynamicFavoriteModal open={isOpen} onClose={() => setIsOpen(false)} />
       )}

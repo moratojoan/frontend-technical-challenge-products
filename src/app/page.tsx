@@ -4,19 +4,22 @@ import { getItems } from '@/lib/api/items';
 import { ProductsSection } from '@/components/ProductsSection';
 import { SortingSection } from '@/components/SortingSection';
 
-import styles from './page.module.css';
+import styles from './styles.module.css';
 import { FavoritesButton } from '@/components/FavoritesButton';
+import { Header } from '@/components/Header';
 
 export default async function Home() {
   const itemsResponse = await getItems({});
 
   return (
     <ItemsProvider initialItemsResponse={itemsResponse}>
+      <Header>
+        <FavoritesButton />
+      </Header>
       <main id="main" className={styles.main}>
-        <section>
+        <section className={styles['explore-section']}>
           <SearchForm />
           <SortingSection />
-          <FavoritesButton />
         </section>
         <ProductsSection />
       </main>

@@ -1,6 +1,11 @@
 :root {
   --max-width: 1100px;
   --border-radius: 12px;
+  --primary-300: #5debd3;
+  --primary-400: #2bd6be;
+  --primary-500: #13c1ac;
+  --primary-600: #0c9588;
+  font-size: 16px;
 }
 
 * {
@@ -19,6 +24,10 @@ body {
 ol,
 ul {
   list-style: none;
+}
+
+button {
+  cursor: pointer;
 }
 
 .sr-only {

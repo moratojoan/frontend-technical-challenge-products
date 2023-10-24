@@ -1,0 +1,19 @@
+.favorites-button {
+  font-size: 1rem;
+  padding: 0.5rem 2rem;
+  color: #fff;
+  background-color: var(--primary-500);
+  border-radius: 3rem;
+  outline: none;
+  border: none;
+  box-shadow: 0 1px 4px #2532381a;
+
+  &:hover {
+    background-color: var(--primary-400);
+  }
+
+  &:active {
+    background-color: var(--primary-600);
+    box-shadow: none;
+  }
+}

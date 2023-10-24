@@ -1,9 +1,16 @@
-import styles from './header.module.css';
+import { ReactNode } from 'react';
+import styles from './styles.module.css';
 
-export function Header() {
+interface HeaderProps {
+  children?: ReactNode;
+}
+export function Header({ children }: HeaderProps) {
   return (
     <header className={styles.header}>
-      <h1>Item Manager</h1>
+      <div>
+        <h1>Item Manager</h1>
+        {children}
+      </div>
     </header>
   );
 }
