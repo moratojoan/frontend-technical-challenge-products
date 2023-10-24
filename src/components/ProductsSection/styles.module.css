@@ -1,0 +1,13 @@
+.products-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 3rem;
+  padding-top: 2rem;
+}
+
+.product-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}

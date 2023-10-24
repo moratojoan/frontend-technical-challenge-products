@@ -3,6 +3,7 @@
 import { useItems } from '@/providers/ItemsProvider';
 import { Button } from '@/components/ui/Button';
 import { ProductListItem } from '../ProductListItem';
+import styles from './styles.module.css';
 
 export function ProductsSection() {
   const {
@@ -10,11 +11,11 @@ export function ProductsSection() {
     fetchItems,
   } = useItems();
   return (
-    <section>
+    <section className={styles['products-section']}>
       {error && <p>{error.message}</p>}
       {data && (
         <>
-          <ul>
+          <ul className={styles['product-list']}>
             {data.items.map((item) => (
               <ProductListItem
                 /*
