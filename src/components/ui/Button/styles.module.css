@@ -1,14 +1,24 @@
 .button {
   font-size: 1rem;
-
+  padding: 0.5rem 1rem;
   border-radius: 3rem;
   outline: none;
   border: none;
   box-shadow: 0 1px 4px #2532381a;
+  white-space: nowrap;
+  height: fit-content;
+
+  @media (width > 768px) {
+    padding: 0.5rem 2rem;
+  }
 }
 
 .button--small {
-  padding: 0.5rem 2rem;
+  font-size: 0.75rem;
+  padding: 0.3rem 0.5rem;
+  @media (width > 768px) {
+    padding: 0.3rem 1rem;
+  }
 }
 
 .button--large {
@@ -25,6 +35,23 @@
 
   &:active {
     background-color: var(--primary-600);
+    box-shadow: none;
+  }
+}
+
+.button--outlined {
+  color: var(--primary-300);
+  background-color: #fff;
+  border: 1px solid var(--primary-400);
+
+  &:hover {
+    color: #fff;
+    background-color: var(--primary-400);
+  }
+
+  &:active {
+    color: #fff;
+    background-color: var(--primary-500);
     box-shadow: none;
   }
 }

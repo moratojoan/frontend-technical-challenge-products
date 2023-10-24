@@ -3,14 +3,14 @@ import styles from './styles.module.css';
 import { clsx } from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary';
-  size?: 'small' | 'large';
+  variant?: 'primary' | 'outlined';
+  size?: 'small' | 'normal' | 'large';
   className?: string;
 }
 export function Button({
   children,
   variant = 'primary',
-  size = 'small',
+  size = 'normal',
   className,
   ...props
 }: ButtonProps) {
@@ -19,7 +19,9 @@ export function Button({
       className={clsx(
         styles['button'],
         variant === 'primary' && styles['button--primary'],
-        size === 'small' ? styles['button--small'] : styles['button--large'],
+        variant === 'outlined' && styles['button--outlined'],
+        size === 'small' && styles['button--small'],
+        size === 'large' && styles['button--large'],
         className
       )}
       {...props}
