@@ -13,12 +13,11 @@ export default async function Home() {
   return (
     <ItemsProvider initialItemsResponse={itemsResponse}>
       <main id="main" className={styles.main}>
-        <header>
-          <h1>Item Manager</h1>
+        <section>
           <SearchForm />
           <SortingSection />
           <FavoritesButton />
-        </header>
+        </section>
         <ProductsSection />
       </main>
     </ItemsProvider>

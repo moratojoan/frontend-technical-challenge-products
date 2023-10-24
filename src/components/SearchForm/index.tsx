@@ -15,7 +15,9 @@ export function SearchForm() {
   };
   return (
     <form onSubmit={handleSubmit}>
-      <label htmlFor="keyword">Search items</label>
+      <label htmlFor="keyword" className="sr-only">
+        Search items
+      </label>
       <input
         id="keyword"
         type="text"
