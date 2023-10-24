@@ -14,10 +14,10 @@
   & div {
     display: flex;
     justify-content: space-between;
+    align-items: center;
     width: 100%;
     max-width: var(--max-width);
     margin: auto;
-    padding: 0 2rem;
   }
 
   & h1 {
@@ -26,6 +26,10 @@
 
   @media (width > 768px) {
     height: 6rem;
+
+    & div {
+      padding: 0 2rem;
+    }
 
     & h1 {
       font-size: 2rem;

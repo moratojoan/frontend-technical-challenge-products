@@ -1,6 +1,8 @@
 import { type Item } from '@/lib/api/items/types';
 import { useItems } from '@/providers/ItemsProvider';
 import { Image } from '@/components/ui/Image';
+import { Button } from '@/components/ui/Button';
+import styles from './styles.module.css';
 
 interface ProductListItemProps {
   item: Item;
@@ -10,19 +12,25 @@ export function ProductListItem({ item }: ProductListItemProps) {
     useItems();
   const isInFavorites = checkIfIsInFavorites(item);
   return (
-    <li data-testid="product-item">
-      <h2>{item.title}</h2>
-      <p>{item.description}</p>
-      <p>{item.email}</p>
-      <p>{item.price}</p>
+    <li data-testid="product-item" className={styles['product-item']}>
+      <div className={styles.content}>
+        <header>
+          <h2>{item.title}</h2>
+          <Button
+            variant={isInFavorites ? 'outlined' : 'primary'}
+            size="small"
+            onClick={() =>
+              isInFavorites ? removeFromFavorite(item) : addToFavorites(item)
+            }
+          >
+            {isInFavorites ? 'Remove from favorites' : 'Add to favorites'}
+          </Button>
+        </header>
+        <p>{item.price}</p>
+        <p className={styles.description}>{item.description}</p>
+        <p>{item.email}</p>
+      </div>
       <Image src={item.image} alt={item.title} width={200} height={200} />
-      <button
-        onClick={() =>
-          isInFavorites ? removeFromFavorite(item) : addToFavorites(item)
-        }
-      >
-        {isInFavorites ? 'Remove from favorites' : 'Add to favorites'}
-      </button>
     </li>
   );
 }

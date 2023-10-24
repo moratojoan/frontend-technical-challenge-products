@@ -3,11 +3,14 @@
   flex-direction: column;
   align-items: center;
   gap: 3rem;
+  width: 100%;
   padding-top: 2rem;
 }
 
 .product-list {
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
   gap: 2rem;
 }

@@ -32,7 +32,7 @@ afterEach(() => server.resetHandlers());
 
 describe('Item Manager App', () => {
   it('shows a list of maximum 5 items with title, description, price, email and image', async () => {
-    const { getAllByTestId } = render(await App());
+    const { debug, getAllByTestId } = render(await App());
     const products = getAllByTestId('product-item');
 
     expect(products.length <= 5).toBe(true);
