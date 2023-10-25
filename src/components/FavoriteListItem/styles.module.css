@@ -1,0 +1,16 @@
+.favorite-item {
+  display: flex;
+  justify-content: flex-end;
+  flex-direction: row-reverse;
+  gap: 1rem;
+
+  & img {
+    border-radius: 1rem;
+  }
+
+  & header {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+  }
+}

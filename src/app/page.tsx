@@ -13,7 +13,7 @@ export default async function Home() {
 
   return (
     <ItemsProvider initialItemsResponse={itemsResponse}>
-      <Header>
+      <Header title="Item Manager">
         <FavoritesButton />
       </Header>
       <main id="main" className={styles.main}>

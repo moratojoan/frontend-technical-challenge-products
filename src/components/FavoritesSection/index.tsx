@@ -1,6 +1,10 @@
 import { ChangeEventHandler, useState } from 'react';
 import { useItems } from '@/providers/ItemsProvider';
 import { FavoriteListItem } from '../FavoriteListItem';
+import { Header } from '../Header';
+import { Button } from '@/components/ui/Button';
+import { SearchInput } from '@/components/ui/SearchInput';
+import styles from './styles.module.css';
 
 export function FavoritesSection({ onClose }: { onClose: () => void }) {
   const { favorites } = useItems();
@@ -22,22 +26,32 @@ export function FavoritesSection({ onClose }: { onClose: () => void }) {
   );
   return (
     <>
-      <header>
-        <h1>Favorite Items</h1>
-        <label htmlFor="search-by-title">Search by title</label>
-        <input
-          id="search-by-title"
-          type="text"
-          placeholder="Search by title..."
-          onChange={handleInputChange}
-        />
-        <button onClick={onClose}>Close Modal</button>
-      </header>
-      <section>
-        {favoritesFiltered.map((item) => (
-          <FavoriteListItem key={item.title + item.description} item={item} />
-        ))}
-      </section>
+      <Header title="Favorite Items">
+        <Button onClick={onClose}>Close</Button>
+      </Header>
+      <div className={styles.content}>
+        <section className={styles['search-container']}>
+          <label htmlFor="search-by-title" className="sr-only">
+            Search by title
+          </label>
+          <SearchInput
+            id="search-by-title"
+            type="text"
+            placeholder="Search by title..."
+            onChange={handleInputChange}
+          />
+        </section>
+        <section className={styles['favorites-section']}>
+          <ul className={styles['favorites-list']}>
+            {favoritesFiltered.map((item) => (
+              <FavoriteListItem
+                key={item.title + item.description}
+                item={item}
+              />
+            ))}
+          </ul>
+        </section>
+      </div>
     </>
   );
 }

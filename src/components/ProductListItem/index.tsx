@@ -26,7 +26,7 @@ export function ProductListItem({ item }: ProductListItemProps) {
             {isInFavorites ? 'Remove from favorites' : 'Add to favorites'}
           </Button>
         </header>
-        <p>{item.price} €</p>{' '}
+        <p>{item.price} €</p>
         {/* the price could be better formatted with Intl.NumberFormat.prototype.format() */}
         <p className={styles.description}>{item.description}</p>
         <p>{item.email}</p>

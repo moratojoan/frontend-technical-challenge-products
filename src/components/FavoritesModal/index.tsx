@@ -1,9 +1,9 @@
 'use client';
 
 import ReactModal from 'react-modal';
-import './styles.css';
-
 import { FavoritesSection } from '../FavoritesSection';
+// import styles from './styles.module.css';
+import './styles.css';
 
 interface FavoriteModalProps {
   open: boolean;
@@ -18,6 +18,12 @@ export function FavoriteModal({ open, onClose }: FavoriteModalProps) {
       contentLabel="Favorite Items Modal"
       onRequestClose={onClose}
       shouldCloseOnOverlayClick={true}
+      style={{
+        content: {
+          padding: 0,
+          inset: 0,
+        },
+      }}
     >
       <FavoritesSection onClose={onClose} />
     </ReactModal>

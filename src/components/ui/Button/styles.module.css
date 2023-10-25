@@ -7,6 +7,7 @@
   box-shadow: 0 1px 4px #2532381a;
   white-space: nowrap;
   height: fit-content;
+  width: fit-content;
 
   @media (width > 768px) {
     padding: 0.5rem 2rem;
