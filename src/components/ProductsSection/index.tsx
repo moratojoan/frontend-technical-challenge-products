@@ -16,7 +16,7 @@ export function ProductsSection() {
       {data && (
         <>
           <ul className={styles['product-list']}>
-            {data.items.map((item) => (
+            {data.items.map((item, index) => (
               <ProductListItem
                 /*
                   As the items have no Id, I use the description as key to
@@ -24,6 +24,7 @@ export function ProductsSection() {
                 */
                 key={item.title + item.description}
                 item={item}
+                priority={index === 0}
               />
             ))}
           </ul>

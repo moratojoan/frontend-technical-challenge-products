@@ -6,8 +6,9 @@ import styles from './styles.module.css';
 
 interface ProductListItemProps {
   item: Item;
+  priority?: boolean;
 }
-export function ProductListItem({ item }: ProductListItemProps) {
+export function ProductListItem({ item, priority }: ProductListItemProps) {
   const { addToFavorites, checkIfIsInFavorites, removeFromFavorite } =
     useItems();
   const isInFavorites = checkIfIsInFavorites(item);
@@ -33,9 +34,11 @@ export function ProductListItem({ item }: ProductListItemProps) {
       </div>
       <div className={styles['image-container']}>
         <Image
+          priority={priority}
           src={item.image}
           alt={item.title}
           fill
+          sizes="(min-width: 768px) 100vw, 200px"
           style={{ objectFit: 'cover' }}
         />
       </div>
