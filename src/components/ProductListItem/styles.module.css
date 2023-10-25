@@ -17,11 +17,16 @@
   & header {
     display: flex;
     justify-content: space-between;
-    margin-bottom: 0.5rem;
   }
 
   & .description {
     color: #5c7a89;
+  }
+
+  & .image-container {
+    position: relative;
+    width: 100%;
+    height: 200px;
   }
 
   @media (width > 768px) {
@@ -30,5 +35,12 @@
     justify-content: flex-end;
     flex-direction: row-reverse;
     gap: 1rem;
+
+    & .image-container {
+      position: relative;
+      min-width: 200px;
+      width: 200px;
+      height: 200px;
+    }
   }
 }

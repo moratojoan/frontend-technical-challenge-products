@@ -31,7 +31,14 @@ export function ProductListItem({ item }: ProductListItemProps) {
         <p className={styles.description}>{item.description}</p>
         <p>{item.email}</p>
       </div>
-      <Image src={item.image} alt={item.title} width={200} height={200} />
+      <div className={styles['image-container']}>
+        <Image
+          src={item.image}
+          alt={item.title}
+          fill
+          style={{ objectFit: 'cover' }}
+        />
+      </div>
     </li>
   );
 }
