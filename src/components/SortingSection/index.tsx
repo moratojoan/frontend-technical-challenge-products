@@ -3,7 +3,7 @@
 import { type Iterator } from '@/lib/api/items/types';
 import { getNewOrderBy, splitOrderBy } from '@/lib/helpers/order';
 import { useItems } from '@/providers/ItemsProvider';
-import { SortingButton } from './components/SortingButton';
+import { Button } from '@/components/ui/Button';
 import { AscDescIcon } from './components/AscDescIcon';
 import styles from './styles.module.css';
 
@@ -30,45 +30,45 @@ export function SortingSection() {
       <p className="sr-only">Sort by:</p>
       <ul className={styles['sorting-options']}>
         <li className={styles['sorting-button-container']}>
-          <SortingButton
-            selected={iterator === undefined}
+          <Button
+            variant={iterator === undefined ? 'primary' : 'secondary'}
             onClick={() => handleClick()}
           >
             Default order
-          </SortingButton>
+          </Button>
         </li>
         <li className={styles['sorting-button-container']}>
-          <SortingButton
-            selected={iterator === 'title'}
+          <Button
+            variant={iterator === 'title' ? 'primary' : 'secondary'}
             onClick={() => handleClick('title')}
           >
             Title {iterator === 'title' && <AscDescIcon order={order} />}
-          </SortingButton>
+          </Button>
         </li>
         <li className={styles['sorting-button-container']}>
-          <SortingButton
-            selected={iterator === 'description'}
+          <Button
+            variant={iterator === 'description' ? 'primary' : 'secondary'}
             onClick={() => handleClick('description')}
           >
             Description{' '}
             {iterator === 'description' && <AscDescIcon order={order} />}
-          </SortingButton>
+          </Button>
         </li>
         <li className={styles['sorting-button-container']}>
-          <SortingButton
-            selected={iterator === 'email'}
+          <Button
+            variant={iterator === 'email' ? 'primary' : 'secondary'}
             onClick={() => handleClick('email')}
           >
             Email {iterator === 'email' && <AscDescIcon order={order} />}
-          </SortingButton>
+          </Button>
         </li>
         <li className={styles['sorting-button-container']}>
-          <SortingButton
-            selected={iterator === 'price'}
+          <Button
+            variant={iterator === 'price' ? 'primary' : 'secondary'}
             onClick={() => handleClick('price')}
           >
             Price {iterator === 'price' && <AscDescIcon order={order} />}
-          </SortingButton>
+          </Button>
         </li>
       </ul>
     </div>

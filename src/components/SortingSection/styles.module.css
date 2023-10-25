@@ -8,10 +8,14 @@
 
 .sorting-options {
   display: flex;
-  gap: 0.5rem;
+  gap: 1rem;
   flex-wrap: wrap;
 }
 
 .sorting-button-container {
   flex-grow: 1;
+
+  & button {
+    width: 100%;
+  }
 }

@@ -3,7 +3,7 @@ import styles from './styles.module.css';
 import { clsx } from 'clsx';
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'outlined';
+  variant?: 'primary' | 'outlined' | 'secondary';
   size?: 'small' | 'normal' | 'large';
   className?: string;
 }
@@ -20,6 +20,7 @@ export function Button({
         styles['button'],
         variant === 'primary' && styles['button--primary'],
         variant === 'outlined' && styles['button--outlined'],
+        variant === 'secondary' && styles['button--secondary'],
         size === 'small' && styles['button--small'],
         size === 'large' && styles['button--large'],
         className

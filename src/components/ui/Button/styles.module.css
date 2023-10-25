@@ -17,6 +17,7 @@
 .button--small {
   font-size: 0.75rem;
   padding: 0.3rem 0.5rem;
+
   @media (width > 768px) {
     padding: 0.3rem 1rem;
   }
@@ -53,6 +54,22 @@
   &:active {
     color: #fff;
     background-color: var(--primary-500);
+    box-shadow: none;
+  }
+}
+
+.button--secondary {
+  background-color: #fff;
+  outline: none;
+  border: none;
+  box-shadow: 0 1px 4px #2532381a;
+
+  &:hover {
+    background-color: #eceff1;
+  }
+
+  &:active {
+    background-color: #cfd8dc;
     box-shadow: none;
   }
 }
