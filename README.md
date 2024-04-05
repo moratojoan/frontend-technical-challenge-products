@@ -1,4 +1,4 @@
-# Front-End Engineer - Technical assessment (React) - Joan Interview
+# FE - Technical assessment (React)
 
 ## How to run the project?
 
